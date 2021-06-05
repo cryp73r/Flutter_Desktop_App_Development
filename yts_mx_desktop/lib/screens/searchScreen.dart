@@ -25,8 +25,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent * 0.98) {
         _pageNumber = _pageNumber! + 1;
         if (_pageNumber! * 20 <= _maxLimit) {
           _getMoreData();
@@ -199,96 +199,95 @@ class _SearchScreenState extends State<SearchScreen> {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
     return Container(
-          margin: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemCount: _rawData.length + 1,
-            physics: const BouncingScrollPhysics(),
-            controller: _scrollController,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == _rawData.length) {
-                return _displayWheel
-                    ? const CupertinoActivityIndicator(
-                        radius: 20.0,
-                      )
-                    : const Text("");
-              }
-              return GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.only(left: 0.02 * _width, top: 0.005 * _height, right: 0.02 * _width),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: (_height ~/ 5).toInt(),
-                        child: Container(
-                          height: _height / 5,
-                          width: _width / 3,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 3.0, color: Colors.white),
-                          ),
-                          child: Image.network(
-                            getImageData(imageNameFixer(_rawData[index]["slug"]),
-                                "medium-cover"),
-                            fit: BoxFit.fill,
-                            frameBuilder: (BuildContext context, Widget child,
-                                int? frame, bool wasSynchronouslyLoaded) {
-                              if (wasSynchronouslyLoaded) {
-                                return child;
-                              }
-                              return AnimatedOpacity(
-                                child: child,
-                                opacity: frame == null ? 0 : 1,
-                                duration: const Duration(seconds: 1),
-                                curve: Curves.easeOut,
-                              );
-                            },
-                            errorBuilder: (BuildContext context, Object object,
-                                StackTrace? trace) {
-                              return SizedBox(
-                                height: _height / 5,
-                                width: _width / 3,
-                                child: const Center(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.photo,
-                                        size: 60.0,
-                                        color: Colors.white70,
-                                      )),
+      margin: const EdgeInsets.all(15.0),
+      child: GridView.builder(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+        itemCount: _rawData.length + 1,
+        physics: const BouncingScrollPhysics(),
+        controller: _scrollController,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == _rawData.length) {
+            return _displayWheel
+                ? const CupertinoActivityIndicator(
+                    radius: 20.0,
+                  )
+                : const Text("");
+          }
+          return GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(top: _height * 0.01),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: _height * 0.3,
+                      width: _width * 0.13,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 3.0, color: Colors.white),
+                      ),
+                      child: Image.network(
+                        getImageData(imageNameFixer(_rawData[index]["slug"]),
+                            "medium-cover"),
+                        fit: BoxFit.fill,
+                        frameBuilder: (BuildContext context, Widget child,
+                            int? frame, bool wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) {
+                            return child;
+                          }
+                          return AnimatedOpacity(
+                            child: child,
+                            opacity: frame == null ? 0 : 1,
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        errorBuilder: (BuildContext context, Object object,
+                            StackTrace? trace) {
+                          return SizedBox(
+                            height: _height * 0.3,
+                            width: _width * 0.13,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  "images/logo-YTS.png",
+                                  fit: BoxFit.fill,
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                      Text(
-                        _rawData[index]["title"].length <= 15
-                            ? _rawData[index]["title"]
-                            : "${_rawData[index]["title"].substring(0, 15)}...",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "${_rawData[index]["year"]}",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.white70),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MovieDetailScreen(
-                                movieId: _rawData[index]["id"],
-                              )));
-                },
-              );
+                  Text(
+                    _rawData[index]["title"].length <= 17
+                        ? _rawData[index]["title"]
+                        : "${_rawData[index]["title"].substring(0, 18)}...",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "${_rawData[index]["year"]}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MovieDetailScreen(
+                            movieId: _rawData[index]["id"],
+                          )));
             },
-          ),
-        );
+          );
+        },
+      ),
+    );
   }
 }

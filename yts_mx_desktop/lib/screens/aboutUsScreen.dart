@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yts_mx_desktop/screens/appDrawer.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({Key? key}) : super(key: key);
@@ -12,7 +11,6 @@ class AboutUsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: contentHolder(context),
-      drawer: appDrawer(context),
     );
   }
 
@@ -22,7 +20,7 @@ class AboutUsScreen extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Image.asset(
-          "images/logo-YTS.png",
+          "images/logo-YTS-1024.png",
           fit: BoxFit.fill,
           color: Colors.black87,
           colorBlendMode: BlendMode.darken,

@@ -68,26 +68,24 @@ class _HomeState extends State<Home> {
     );
   }
 
-  IconButton searchButton(BuildContext context) {
-    return IconButton(
-      tooltip: "Search",
+  TextButton searchButton(BuildContext context) {
+    return TextButton.icon(
+      onPressed: () {
+        Navigator.pushNamed(context, "/searchScreen");
+      },
       icon: const Icon(
         Icons.search,
         size: 30.0,
       ),
-      onPressed: () {
-        Navigator.pushNamed(context, "/searchScreen");
-      },
+      label: Text(
+        "Search",
+        style: labelStyle(),
+      ),
     );
   }
 
-  IconButton filterButton(BuildContext context) {
-    return IconButton(
-      tooltip: "Filter",
-      icon: Icon(
-        _activated ? Icons.clear : Icons.filter_alt,
-        size: 30.0,
-      ),
+  TextButton filterButton(BuildContext context) {
+    return TextButton.icon(
       onPressed: () {
         if (_activated) {
           _activated = false;
@@ -96,6 +94,26 @@ class _HomeState extends State<Home> {
         }
         setState(() {});
       },
+      icon: Icon(
+        _activated ? Icons.clear : Icons.filter_alt,
+        size: 30.0,
+      ),
+      label: _activated
+          ? Text(
+              "Close",
+              style: labelStyle(),
+            )
+          : Text(
+              "Filter",
+              style: labelStyle(),
+            ),
+    );
+  }
+
+  TextStyle labelStyle() {
+    return const TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
     );
   }
 }

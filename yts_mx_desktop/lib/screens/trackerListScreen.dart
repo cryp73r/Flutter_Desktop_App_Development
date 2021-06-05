@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yts_mx_desktop/screens/appDrawer.dart';
 
 class TrackerListScreen extends StatelessWidget {
   const TrackerListScreen({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class TrackerListScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: trackerList(),
-      drawer: appDrawer(context),
     );
   }
 
@@ -31,22 +29,21 @@ class TrackerListScreen extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                 ),
                 GestureDetector(
-                    onLongPress: () {
-                      Clipboard.setData(
-                          ClipboardData(text: snapshot.data));
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Copied to Clipboard"),
-                      ));
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height - 148,
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.all(15.0),
-                      child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Text(snapshot.data.toString())),
-                    ),
+                  onLongPress: () {
+                    Clipboard.setData(ClipboardData(text: snapshot.data));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Copied to Clipboard"),
+                    ));
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height - 148,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.all(15.0),
+                    child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Text(snapshot.data.toString())),
                   ),
+                ),
                 InkWell(
                   child: const Text(
                     "Credits: ngosang",
@@ -69,20 +66,20 @@ class TrackerListScreen extends StatelessWidget {
           }
           return Center(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator(),
+                Container(
+                  margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                ),
+                const Text(
+                  "Hold Tight - Getting Tracker List...",
+                  style: TextStyle(
+                    letterSpacing: 2.0,
                   ),
-                  const Text(
-                    "Hold Tight - Getting Tracker List...",
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
+            ),
           );
         });
   }

@@ -157,7 +157,7 @@ class _FilterScreenState extends State<FilterScreen> {
           TextButton(
             child: const Text(
               "RESET",
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
               quality = "All";
@@ -177,7 +177,7 @@ class _FilterScreenState extends State<FilterScreen> {
           TextButton(
             child: const Text(
               "OK",
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
               Navigator.pushReplacement(

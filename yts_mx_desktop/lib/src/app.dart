@@ -55,8 +55,8 @@ class App extends StatelessWidget {
       cardColor: const Color(0xFF151515),
       canvasColor: Colors.black,
       buttonTheme: Theme.of(context).buttonTheme.copyWith(
-        colorScheme: const ColorScheme.dark(),
-      ),
+            colorScheme: const ColorScheme.dark(),
+          ),
     );
   }
 }

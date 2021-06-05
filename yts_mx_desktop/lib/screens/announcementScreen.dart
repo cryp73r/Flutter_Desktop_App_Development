@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:yts_mx_desktop/JsonData/getJsonData.dart';
-import 'package:yts_mx_desktop/screens/appDrawer.dart';
 import 'package:yts_mx_desktop/utils/utils.dart';
 
 class AnnouncementScreen extends StatelessWidget {
@@ -14,7 +13,6 @@ class AnnouncementScreen extends StatelessWidget {
         title: const Text("Announcements"),
         centerTitle: true,
       ),
-      drawer: appDrawer(context),
       body: FutureBuilder(
         future: getJsonData(announcementUrl),
         builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
@@ -24,20 +22,20 @@ class AnnouncementScreen extends StatelessWidget {
           }
           return Center(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator(),
+                Container(
+                  margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                ),
+                const Text(
+                  "Sit Tight & Relax - Getting Announcements...",
+                  style: TextStyle(
+                    letterSpacing: 2.0,
                   ),
-                  const Text(
-                    "Sit Tight & Relax - Getting Announcements...",
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
+            ),
           );
         },
       ),
@@ -51,7 +49,7 @@ class AnnouncementScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Image.asset(
-            "images/logo-YTS.png",
+            "images/logo-YTS-1024.png",
             fit: BoxFit.fill,
             color: Colors.black87,
             colorBlendMode: BlendMode.darken,

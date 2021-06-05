@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yts_mx_desktop/JsonData/getJsonData.dart';
-import 'package:yts_mx_desktop/screens/appDrawer.dart';
 import 'package:yts_mx_desktop/utils/utils.dart';
 
 class UpdateAppScreen extends StatelessWidget {
@@ -12,7 +11,6 @@ class UpdateAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: appDrawer(context),
       body: FutureBuilder(
           future: getJsonData(updateUrl),
           builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
@@ -22,20 +20,20 @@ class UpdateAppScreen extends StatelessWidget {
             }
             return Center(
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircularProgressIndicator(),
-                    Container(
-                      margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  ),
+                  const Text(
+                    "Checking for Updates...",
+                    style: TextStyle(
+                      letterSpacing: 2.0,
                     ),
-                    const Text(
-                      "Checking for Updates...",
-                      style: TextStyle(
-                        letterSpacing: 2.0,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
+              ),
             );
           }),
     );
@@ -108,7 +106,7 @@ class UpdateAppScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width - 50,
+                        width: MediaQuery.of(context).size.width / 4,
                         height: 50,
                         margin: const EdgeInsets.only(bottom: 15.0),
                         child: ElevatedButton(

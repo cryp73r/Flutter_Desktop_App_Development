@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yts_mx_desktop/screens/appDrawer.dart';
 
 class HowToDownloadScreen extends StatelessWidget {
   const HowToDownloadScreen({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class HowToDownloadScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: stepsHolder(),
-      drawer: appDrawer(context),
     );
   }
 
